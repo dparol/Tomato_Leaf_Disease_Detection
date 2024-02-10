@@ -1,0 +1,30 @@
+<!-- disease_detection/templates/upload_image.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tomato Leaf Disease Detection</title>
+</head>
+<body>
+    <h1>Tomato Leaf Disease Detection</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="image">Choose an image:</label>
+        <input type="file" name="image" accept="image/*" required>
+        <br>
+        <button type="submit">Upload and Detect Disease</button>
+    </form>
+
+    <h2>Previous Uploads:</h2>
+    <ul>
+        {% for upload in uploads %}
+            <li>
+                <img src="{{ upload.image.url }}" alt="Uploaded Image" style="max-width: 300px;">
+                {% if predicted_disease %}
+                    <p>Predicted Disease: {{ predicted_disease }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
